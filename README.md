@@ -21,24 +21,9 @@ This method calculates the importance of each word based on its frequency in a d
 
 Formulas:  
 
-- **Term Frequency (TF):**  
-\[
-TF(t,d) = \frac{f_{t,d}}{\sum_{t' \in d} f_{t',d}}
-\]  
-where \(f_{t,d}\) is the number of times term \(t\) appears in document \(d\).
+<img width="795" height="120" alt="image" src="https://github.com/user-attachments/assets/7d182a45-a226-48b1-8644-f988b1d6660f" />
 
-- **Inverse Document Frequency (IDF):**  
-\[
-IDF(t, D) = \log \frac{N}{|\{d \in D : t \in d\}|}
-\]  
-where:  
-- \(N\) is the total number of documents in the corpus  
-- \(|\{d \in D : t \in d\}|\) is the number of documents where term \(t\) appears
-
-- **TF-IDF Score:**  
-\[
-TFIDF(t,d,D) = TF(t,d) \times IDF(t,D)
-\]
+<img width="791" height="125" alt="image" src="https://github.com/user-attachments/assets/cc7b88ec-188b-4c9f-be18-d143337d256f" />
 
 ---
 
