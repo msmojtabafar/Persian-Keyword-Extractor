@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <title>استخراج کلمات کلیدی فارسی</title>
+    <style>
+        body { font-family: Tahoma, sans-serif; direction: rtl; padding: 20px; max-width: 800px; margin: auto; }
+        textarea { width: 100%; height: 200px; font-size: 14px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f0f0f0; }
+        h2 { margin-top: 40px; }
+        label { margin-right: 15px; }
+        .method-select { margin: 15px 0; }
+        input[type=number] { width: 60px; }
+    </style>
+</head>
+<body>
+    <h1>استخراج کلمات کلیدی فارسی</h1>
+    <form method="POST">
+        <label for="texts">متن‌ها را اینجا وارد کنید (هر متن در یک خط جدا):</label><br />
+        <textarea id="texts" name="texts">{{ input_texts }}</textarea><br />
+
+        <div class="method-select">
+            <label><input type="radio" name="method" value="tfidf" {% if method == 'tfidf' %}checked{% endif %}> روش TF-IDF</label>
+            <label><input type="radio" name="method" value="rake" {% if method == 'rake' %}checked{% endif %}> روش RAKE</label>
+        </div>
+
+        <label for="count">تعداد کلمات کلیدی:</label>
+        <input type="number" id="count" name="count" min="1" value="{{ num_keywords }}"><br><br>
+
+        <button type="submit">استخراج کلمات کلیدی</button>
+    </form>
+
+    {% if corpus_keywords %}
+        <h2>کلمات کلیدی کلی برای همه متن‌ها (TF-IDF)</h2>
+        <table>
+            <tr><th>کلمه کلیدی</th><th>وزن TF-IDF</th></tr>
+            {% for word, score in corpus_keywords %}
+            <tr><td>{{ word }}</td><td>{{ "%.4f"|format(score) }}</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if per_text_keywords %}
+        <h2>کلمات کلیدی هر متن جداگانه</h2>
+        {% for i, kws in enumerate(per_text_keywords, 1) %}
+            <h3>متن {{ i }}</h3>
+            <table>
+                <tr><th>کلمه کلیدی</th><th>وزن / تعداد</th></tr>
+                {% for word, score in kws %}
+                <tr><td>{{ word }}</td><td>{{ "%.4f"|format(score) if method == 'tfidf' else score }}</td></tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
