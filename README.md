@@ -98,11 +98,6 @@ http://127.0.0.1:5000
 
 ---
 
-## License 📄  
-This project is licensed under the **MIT License**.
-
----
-
 ## Feedback & Contributions 🤝  
 Feel free to open issues or submit pull requests. Your feedback and contributions are highly welcome!
 
